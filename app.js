@@ -11,85 +11,114 @@ const axios = require('axios');
 
 */
 
-class smmApi {
+class smmAPI {
     constructor(options) {
         this.key = options.key;
         this.api = options.api || "https://speedsmm.com/api/v2";
     }
 
     async getBalance() {
-        let res = await axios.post(this.api,
+        try {
+            let res = await axios.post(this.api,
             {
                 key: this.key,
                 action: "balance"
             });
-        return res.data;
+
+            return res.data;
+        } catch (e) {
+            return { status: "error", error: e };
+        }
     };
 
     async getServices() {
-        let res = await axios.post(this.api,
-            {
-                key: this.key,
-                action: "services"
-            });
-        return res.data;
+        try {
+            let res = await axios.post(this.api,
+                {
+                    key: this.key,
+                    action: "services"
+                });
+            return res.data;
+        } catch (e) {
+            return { status: "error", error: e };
+        }
     };
 
     async getStatus({ order }) {
-        let res = await axios.post(this.api,
-            {
-                key: this.key,
-                action: "status",
-                order: order
-            });
-        return res.data;
+        try {
+            let res = await axios.post(this.api,
+                {
+                    key: this.key,
+                    action: "status",
+                    order: order
+                });
+            return res.data;
+        } catch (e) {
+            return { status: "error", error: e };
+        }
     };
 
     async addOrder({ service, link, quantity, custom }) {
-        let res = await axios.post(this.api,
-            {
-                key: this.key,
-                action: "add",
-                service: service,
-                link: link,
-                quantity: quantity,
-                custom: custom
-            });
-        return res.data;
+        try {
+            let res = await axios.post(this.api,
+                {
+                    key: this.key,
+                    action: "add",
+                    service: service,
+                    link: link,
+                    quantity: quantity,
+                    custom: custom
+                });
+            return res.data;
+        } catch (e) {
+            return { status: "error", error: e };
+        }
     };
 
     async orderCancel({ order }) {
-        let res = await axios.post(this.api,
-            {
-                key: this.key,
-                action: "cancel",
-                orders: order
-            });
-        return res.data;
+        try {
+            let res = await axios.post(this.api,
+                {
+                    key: this.key,
+                    action: "cancel",
+                    orders: order
+                });
+            return res.data;
+        } catch (e) {
+            return { status: "error", error: e };
+        }
     };
 
     async refill({ order }) {
-        let res = await axios.post(this.api,
-            {
-                key: this.key,
-                action: "refill",
-                order: order
-            });
-        return res.data;
+        try {
+            let res = await axios.post(this.api,
+                {
+                    key: this.key,
+                    action: "refill",
+                    order: order
+                });
+            return res.data;
+        } catch (e) {
+            return { status: "error", error: e };
+        }
     };
 
     async refillStatus({ order }) {
-        let res = await axios.post(this.api,
-            {
-                key: this.key,
-                action: "refill_status",
-                order: order
-            });
-        return res.data;
+        try {
+            let res = await axios.post(this.api,
+                {
+                    key: this.key,
+                    action: "refill_status",
+                    order: order
+                });
+            return res.data;
+        } catch (e) {
+            return { status: "error", error: e };
+        }
     };
 }
 
-module.exports = smmApi;
+module.exports = smmAPI;
 
 /*
 
