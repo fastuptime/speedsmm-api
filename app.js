@@ -14,7 +14,27 @@ const axios = require('axios');
 class smmAPI {
     constructor(options) {
         this.key = options.key;
-        this.api = options.api || "https://speedsmm.com/api/v2";
+        this.api = options.api;
+        this.proxy = options.proxy || [];
+        if(!this.key) throw new Error("Please provide an API key.");
+        if(!this.api) throw new Error("Please provide an API URL.");
+    }
+
+    getRandomProxyConfig() {
+        if (this.proxy.length === 0) return {};
+
+        const randomIndex = Math.floor(Math.random() * this.proxy.length);
+        const proxy = this.proxy[randomIndex];
+        return {
+            proxy: {
+                host: proxy.host,
+                port: proxy.port,
+                auth: {
+                    username: proxy.auth.username,
+                    password: proxy.auth.password
+                }
+            }
+        };
     }
 
     async getBalance() {
@@ -23,11 +43,11 @@ class smmAPI {
             {
                 key: this.key,
                 action: "balance"
-            });
+            }, this.getRandomthis.getRandomProxyConfig()());
 
             return res.data;
         } catch (e) {
-            return { status: "error", error: e };
+            return { status: "error", error: e?.response?.data };
         }
     };
 
@@ -37,10 +57,10 @@ class smmAPI {
                 {
                     key: this.key,
                     action: "services"
-                });
+                }, this.getRandomProxyConfig());
             return res.data;
         } catch (e) {
-            return { status: "error", error: e };
+            return { status: "error", error: e?.response?.data };
         }
     };
 
@@ -51,10 +71,10 @@ class smmAPI {
                     key: this.key,
                     action: "status",
                     order: order
-                });
+                }, this.getRandomProxyConfig());
             return res.data;
         } catch (e) {
-            return { status: "error", error: e };
+            return { status: "error", error: e?.response?.data };
         }
     };
 
@@ -68,10 +88,10 @@ class smmAPI {
                     link: link,
                     quantity: quantity,
                     custom: custom
-                });
+                }, this.getRandomProxyConfig());
             return res.data;
         } catch (e) {
-            return { status: "error", error: e };
+            return { status: "error", error: e?.response?.data };
         }
     };
 
@@ -82,10 +102,10 @@ class smmAPI {
                     key: this.key,
                     action: "cancel",
                     orders: order
-                });
+                }, this.getRandomProxyConfig());
             return res.data;
         } catch (e) {
-            return { status: "error", error: e };
+            return { status: "error", error: e?.response?.data };
         }
     };
 
@@ -96,10 +116,10 @@ class smmAPI {
                     key: this.key,
                     action: "refill",
                     order: order
-                });
+                }, this.getRandomProxyConfig());
             return res.data;
         } catch (e) {
-            return { status: "error", error: e };
+            return { status: "error", error: e?.response?.data };
         }
     };
 
@@ -110,10 +130,10 @@ class smmAPI {
                     key: this.key,
                     action: "refill_status",
                     order: order
-                });
+                }, this.getRandomProxyConfig());
             return res.data;
         } catch (e) {
-            return { status: "error", error: e };
+            return { status: "error", error: e?.response?.data };
         }
     };
 }
