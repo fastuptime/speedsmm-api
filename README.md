@@ -1,6 +1,6 @@
 # 🚀 speedsmm-api
 
-`speedsmm-api`, SMM (Sosyal Medya Pazarlama) panelleri ile kolayca etkileşime geçmenizi sağlayan bir Node.js modülüdür. Bu modül, API anahtarınızı ve proxy ayarlarınızı kullanarak çeşitli SMM hizmetlerine erişim sağlar.
+`speedsmm-api`, Sosyal Medya Pazarlama (SMM) panelleri ile kolayca etkileşime geçmenizi sağlayan bir Node.js modülüdür. Bu modül, API anahtarınızı ve proxy ayarlarınızı kullanarak çeşitli SMM hizmetlerine erişim sağlar.
 
 ## 📦 Kurulum
 
@@ -69,16 +69,18 @@ smm.getStatus({ order: '12345' }).then(response => {
 });
 ```
 
-#### ➕ `addOrder({ service, link, quantity, custom })`
+#### ➕ `addOrder({ service, data })`
 
 Yeni bir sipariş ekler.
 
 ```javascript
 smm.addOrder({
     service: 'service_id',
-    link: 'https://example.com',
-    quantity: 100,
-    custom: 'custom_data'
+    data: {
+        link: 'https://example.com',
+        quantity: 100,
+        custom: 'custom_data'
+    }
 }).then(response => {
     console.log(response);
 }).catch(error => {
@@ -86,12 +88,12 @@ smm.addOrder({
 });
 ```
 
-#### ❌ `orderCancel({ order })`
+#### ❌ `ordersCancel({ orders })`
 
-Bir siparişi iptal eder.
+Bir veya birden fazla siparişi iptal eder.
 
 ```javascript
-smm.orderCancel({ order: '12345' }).then(response => {
+smm.ordersCancel({ orders: ['12345', '67890'] }).then(response => {
     console.log(response);
 }).catch(error => {
     console.error(error);
@@ -122,10 +124,32 @@ smm.refillStatus({ order: '12345' }).then(response => {
 });
 ```
 
+#### 🔄 `refillMultipleStatus({ orders })`
+
+Birden fazla siparişin doldurma durumlarını sorgular.
+
+```javascript
+smm.refillMultipleStatus({ orders: ['12345', '67890'] }).then(response => {
+    console.log(response);
+}).catch(error => {
+    console.error(error);
+});
+```
+
+#### 🌐 `getMyIP()`
+
+Kendi IP adresinizi sorgular.
+
+```javascript
+smm.getMyIP().then(response => {
+    console.log(response);
+}).catch(error => {
+    console.error(error);
+});
+```
+
 ## 📝 Lisans
 
 - ⚖️ Its protected by Creative Commons ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/))
-
-<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="BYNCSA40"><img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"></a>
 
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="BYNCSA40"><img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"></a>
